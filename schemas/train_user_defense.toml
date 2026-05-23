@@ -1,0 +1,29 @@
+###
+# train_user_defense schema
+# Wraps train_user with a pre-training KNN defense step.
+# Outputs paccs.npy / caccs.npy / labels.npy / model.pth (matching train_user)
+# plus scores.npy / kept_indices.npy / removed_indices.npy /
+# detection_metrics.json / summary.json / summary_detailed.json.
+###
+
+[train_user_defense]
+input_labels = "string. Path to poisoned soft-label .npy (output of select_flips, slurm compatible)."
+true_labels = "string. Path to clean soft-label .npy (output of select_flips/true.npy, slurm compatible)."
+output_dir = "string. Path to output directory (slurm compatible)."
+user_model = "string: {r32p, r18, r18-tin, vgg, vgg-pretrain, vit-pretrain}."
+dataset = "string: {cifar, cifar_100}. Tiny ImageNet is out of scope for the defense."
+trainer = "string: {sgd, adam}. Specifies optimizer."
+source_label = "int. Source class label."
+target_label = "int. Target class label for the trigger."
+poisoner = "string. Trigger flag: {1xp, 2xp, 3xp, 1xs, 2xs, 1xl, 4xl}."
+defense_mode = "string: {none, remove}. 'none' is regression-equivalent to train_user."
+knn = "dict. KNN defense config. Required sub-table; see experiments/knn_defense_*/config.toml for keys (encoder, k, scoring, removal_count, threshold, batch_size, feature_cache)."
+
+[OPTIONAL]
+soft = "bool. Train on soft labels rather than argmax. Default false."
+alpha = "float: [0, 1]. Interpolation between true (1) and input (0) labels. Default 0."
+batch_size = "int. Trainer batch size. Defaults to trainer's standard if omitted."
+epochs = "int. Trainer epochs. Defaults to trainer's standard if omitted."
+optim_kwargs = "dict. Optional keyword overrides for the PyTorch optimizer."
+scheduler_kwargs = "dict. Optional keyword overrides for the PyTorch LR scheduler."
+seed = "int. RNG seed for reproducibility. Default 0."

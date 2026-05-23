@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python _build_kaggle_notebook.py)"
+    ]
+  }
+}
