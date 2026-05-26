@@ -370,11 +370,10 @@ python run_experiment.py example_attack select_flips
 
 Now place them where the defense experiments expect them:
 
-```powershell
-# Windows PowerShell
-New-Item -ItemType Directory -Force "precomputed_labels\cifar\r32p\1xs"
-Copy-Item "experiments\example_attack\1500.npy" "precomputed_labels\cifar\r32p\1xs\1500.npy"
-Copy-Item "experiments\example_attack\true.npy"  "precomputed_labels\cifar\r32p\1xs\true.npy"
+```cmd
+mkdir precomputed_labels\cifar\r32p\1xs
+copy experiments\example_attack\1500.npy precomputed_labels\cifar\r32p\1xs\1500.npy
+copy experiments\example_attack\true.npy precomputed_labels\cifar\r32p\1xs\true.npy
 ```
 
 **Alternative — skip the copy, edit the config instead.**
@@ -466,7 +465,165 @@ python scripts/sanity_check_defense.py --demo --k 50
 python scripts/sanity_check_defense.py --demo --threshold 0.6
 ```
 
-### 4.5 Running on Kaggle
+### 4.5 Full k-sweep: metrics, graphs, samples, and tables
+
+Use this when you want the full thesis-style report across multiple `k`
+values. The sweep code lives in `scripts/k_sweep/` and uses the existing
+`train_user_defense` module. It generates configs, runs each experiment,
+aggregates scores, and writes detection plots, training plots, feature-space
+diagrams, sample grids, and Markdown/LaTeX tables.
+
+Prerequisites:
+
+1. Install the plotting/metric dependencies:
+   ```cmd
+   python -m pip install scikit-learn matplotlib pandas
+   ```
+   Optional for UMAP feature plots:
+   ```cmd
+   python -m pip install umap-learn
+   ```
+2. Make sure the FLIP label files exist at the path expected by the generated
+   configs:
+   ```text
+   precomputed_labels/cifar/r32p/1xs/1500.npy
+   precomputed_labels/cifar/r32p/1xs/true.npy
+   ```
+   If you generated labels under `experiments/example_attack/`, copy them:
+   ```cmd
+   mkdir precomputed_labels\cifar\r32p\1xs
+   copy experiments\example_attack\1500.npy precomputed_labels\cifar\r32p\1xs\1500.npy
+   copy experiments\example_attack\true.npy precomputed_labels\cifar\r32p\1xs\true.npy
+   ```
+
+From the normal VS Code terminal using **Command Prompt** (`cmd.exe`), run
+the full default sweep with these commands:
+
+```cmd
+python scripts\k_sweep\generate_config.py --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --dataset cifar --user-model r32p --trainer sgd --poisoner 1xs --budget 1500 --source-label 9 --target-label 4 --encoder dinov2_vits14 --scoring disagreement --removal-count auto --threshold 0.5 --seed 0 --name-prefix knn_defense_cifar_1xs_1500
+for %K in (1 5 10 20 50 100 200 500 1000 2000) do for %M in (none remove) do python run_experiment.py knn_defense_cifar_1xs_1500_%M_k%K
+python scripts\k_sweep\aggregate_results.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_detection.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500 --threshold 0.5
+python scripts\k_sweep\plot_training.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_features.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --dataset cifar --encoder dinov2_vits14 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_samples.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --dataset cifar --poisoner 1xs --target-label 4 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\make_tables.py --name-prefix knn_defense_cifar_1xs_1500 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+```
+
+If you paste those commands into a `.bat` file instead of typing them
+directly into Command Prompt, change `%K` and `%M` to `%%K` and `%%M`.
+
+From Git Bash / WSL / Linux / macOS, the wrapper script is shorter:
+
+```bash
+bash scripts/k_sweep/run_full_sweep.sh
+```
+
+Default sweep:
+
+```text
+k = 1, 5, 10, 20, 50, 100, 200, 500, 1000, 2000
+mode = none, remove
+dataset = cifar
+model = r32p
+poisoner = 1xs
+budget = 1500
+threshold = 0.5
+```
+
+Useful shorter runs:
+
+```cmd
+REM Quick 4-point sweep
+python scripts\k_sweep\generate_config.py --k-values 5 20 100 500 --modes none remove --name-prefix knn_defense_cifar_1xs_1500
+for %K in (5 20 100 500) do for %M in (none remove) do python run_experiment.py knn_defense_cifar_1xs_1500_%M_k%K
+
+REM Rebuild plots/tables only after experiments already ran
+python scripts\k_sweep\aggregate_results.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_detection.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500 --threshold 0.5
+python scripts\k_sweep\plot_training.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_features.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --modes none remove --dataset cifar --encoder dinov2_vits14 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\plot_samples.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 1 5 10 20 50 100 200 500 1000 2000 --dataset cifar --poisoner 1xs --target-label 4 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+python scripts\k_sweep\make_tables.py --name-prefix knn_defense_cifar_1xs_1500 --report-dir experiments\_report_knn_defense_cifar_1xs_1500
+
+REM Only run defended mode for a short sweep
+python scripts\k_sweep\generate_config.py --k-values 5 20 100 500 --modes remove --name-prefix knn_defense_cifar_1xs_1500
+for %K in (5 20 100 500) do python run_experiment.py knn_defense_cifar_1xs_1500_remove_k%K
+```
+
+Bash equivalents:
+
+```bash
+bash scripts/k_sweep/run_full_sweep.sh --k-values "5 20 100 500"
+bash scripts/k_sweep/run_full_sweep.sh --skip-train
+bash scripts/k_sweep/run_full_sweep.sh --skip-none
+bash scripts/k_sweep/run_full_sweep.sh --force
+```
+
+Outputs are written under:
+
+```text
+experiments/_report_knn_defense_cifar_1xs_1500/
+```
+
+Important files:
+
+```text
+master_metrics.csv
+master_metrics.json
+threshold_sweep.csv
+per_class_detection.csv
+training_curves.csv
+sweep.log
+figures/
+tables/
+```
+
+What gets generated:
+
+- `experiments/knn_defense_cifar_1xs_1500_<mode>_k<k>/` for each generated
+  experiment. Each directory contains `config.toml`, `summary.json`,
+  `summary_detailed.json`, `detection_metrics.json`, `scores.npy`,
+  `kept_indices.npy`, `removed_indices.npy`, `paccs.npy`, `caccs.npy`,
+  `labels.npy`, and `model.pth`.
+- `master_metrics.csv/json`: one row per `(k, mode)` with CTA, PTA, AUROC,
+  AUPRC, precision@k, recall@k, flagged precision/recall, best F1, best MCC,
+  removed-sample counts, and score statistics.
+- `threshold_sweep.csv`: threshold-grid metrics for each `k`, including TP,
+  FP, FN, TN, precision, recall, F1, MCC, and FPR.
+- `per_class_detection.csv`: class-level detection breakdown.
+- `training_curves.csv`: per-epoch CTA/PTA and loss values.
+- `figures/detection/`: ROC curves, PR curves, score distributions,
+  confusion matrices, threshold sweeps, calibration plots, per-class heatmaps,
+  and k-vs-detection-metric plots.
+- `figures/training/`: CTA/PTA curves, CTA-PTA tradeoff, defense success vs
+  `k`, and baseline-vs-defense comparison plots.
+- `figures/features/`: t-SNE/UMAP-style feature visualizations, feature
+  distance plots, and neighbor-purity plots.
+- `figures/samples/`: example image grids for true positives, false positives,
+  false negatives, true negatives, top suspicious samples, and target-class
+  overviews.
+- `tables/`: thesis-ready Markdown and LaTeX tables.
+- `sweep.log`: terminal output from the bash wrapper. If you run the raw
+  Command Prompt commands, redirect output manually if you want a log.
+
+The generated experiment configs are written under names like:
+
+```text
+experiments/knn_defense_cifar_1xs_1500_none_k20/config.toml
+experiments/knn_defense_cifar_1xs_1500_remove_k20/config.toml
+```
+
+You can run any single generated experiment manually:
+
+```cmd
+python run_experiment.py knn_defense_cifar_1xs_1500_remove_k20
+```
+
+For the detailed sweep documentation, see
+`scripts/k_sweep/README.md`.
+
+### 4.6 Running on Kaggle
 
 The existing [FLIP_Kaggle.ipynb](FLIP_Kaggle.ipynb) rebuilds the project per
 session with `%%writefile` cells. To add the defense to that flow, append

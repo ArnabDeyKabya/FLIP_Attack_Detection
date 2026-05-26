@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m py_compile scripts/k_sweep/generate_config.py scripts/k_sweep/aggregate_results.py scripts/k_sweep/plot_detection.py scripts/k_sweep/plot_training.py scripts/k_sweep/plot_features.py scripts/k_sweep/plot_samples.py scripts/k_sweep/make_tables.py)",
+      "Bash(python -c \"import pandas, numpy, matplotlib, sklearn; print\\('deps OK:', pandas.__version__, numpy.__version__, matplotlib.__version__, sklearn.__version__\\)\")",
+      "Bash(python scripts/k_sweep/aggregate_results.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 20 --modes none remove --report-dir experiments/_report_test)",
+      "Bash(python scripts/k_sweep/make_tables.py --name-prefix knn_defense_cifar_1xs_1500 --report-dir experiments/_report_test)",
+      "Bash(python scripts/k_sweep/plot_detection.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 20 --modes none remove --report-dir experiments/_report_test --threshold 0.5)",
+      "Bash(python scripts/k_sweep/plot_training.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 20 --modes none remove --report-dir experiments/_report_test)",
+      "Bash(python scripts/k_sweep/plot_features.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 20 --modes remove --dataset cifar --encoder dinov2_vits14 --report-dir experiments/_report_test --skip-tsne --skip-umap)",
+      "Bash(python scripts/k_sweep/plot_samples.py --name-prefix knn_defense_cifar_1xs_1500 --k-values 20 --dataset cifar --poisoner 1xs --target-label 4 --report-dir experiments/_report_test)",
+      "Bash(python -m py_compile scripts/k_sweep/*.py)"
+    ]
+  }
+}
