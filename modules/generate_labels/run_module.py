@@ -57,6 +57,7 @@ def run(experiment_name, module_name, **kwargs):
     _, _, _, _, mtt_dataset =\
         get_matching_datasets(dataset_flag, poisoner, clean_label, train_pct=train_pct, big=big_ims)
     
+    n_classes = get_n_classes(dataset_flag)
     labels = extract_labels(mtt_dataset.distill, config['one_hot_temp'], n_classes)
     labels_init = torch.stack(extract_labels(mtt_dataset.distill, 1, n_classes))
     labels_syn = torch.stack(labels).requires_grad_(True)
@@ -72,7 +73,6 @@ def run(experiment_name, module_name, **kwargs):
 
     # Optimize labels
     print("Training...")
-    n_classes = get_n_classes(dataset_flag)
 
     student_model = load_model(expert_model_flag, n_classes)
     expert_model = load_model(expert_model_flag, n_classes)

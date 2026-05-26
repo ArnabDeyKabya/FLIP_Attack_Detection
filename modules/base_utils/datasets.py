@@ -1,3 +1,4 @@
+import os
 import random
 import numpy as np
 import torch
@@ -429,11 +430,12 @@ def make_dataloader(
     shuffle=True,
     drop_last=True
 ):
+    num_workers = 0 if os.name == "nt" else 4
     dataloader = DataLoader(
         dataset,
         batch_size=batch_size,
         shuffle=shuffle,
-        num_workers=4,
+        num_workers=num_workers,
         pin_memory=True,
         drop_last=drop_last,
     )
