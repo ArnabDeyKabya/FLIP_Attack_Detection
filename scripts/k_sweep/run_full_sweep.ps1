@@ -1,5 +1,5 @@
 # =============================================================================
-# Deep k-NN defense — full thesis sweep (PowerShell)
+# Deep k-NN defense - full thesis sweep (PowerShell)
 # =============================================================================
 # Mirror of run_full_sweep.sh for native Windows PowerShell.
 #
@@ -56,7 +56,7 @@ $LogFile = Join-Path $ReportDir "sweep.log"
 Start-Transcript -Path $LogFile -Append | Out-Null
 
 Write-Host "============================================================"
-Write-Host "Deep k-NN defense sweep — starting"
+Write-Host "Deep k-NN defense sweep - starting"
 Write-Host "  date           : $(Get-Date)"
 Write-Host "  project root   : $Root"
 Write-Host "  name prefix    : $NamePrefix"
@@ -194,7 +194,7 @@ if ($SkipTables) {
 
 Write-Host ""
 Write-Host "============================================================"
-Write-Host "Deep k-NN defense sweep — complete"
+Write-Host "Deep k-NN defense sweep - complete"
 Write-Host "  report dir : $ReportDir"
 Write-Host "  log        : $LogFile"
 Write-Host "============================================================"
