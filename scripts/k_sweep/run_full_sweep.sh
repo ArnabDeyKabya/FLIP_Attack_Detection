@@ -58,6 +58,13 @@ SKIP_AGGREGATE=0
 FORCE=0
 PYTHON="${PYTHON:-python}"
 
+# Resume policy: experiments already generated in a previous sweep run that
+# must NOT be retrained.  All other pipeline stages still operate over the
+# full K_VALUES x MODES grid so the final report includes these existing
+# outputs alongside the newly trained remove-mode runs.
+ALREADY_DONE_MODES=(none)        # done for every k value
+ALREADY_DONE_REMOVE_K=(1 5)      # done only for remove mode
+
 # ----- arg parsing ------------------------------------------------------------
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -156,6 +163,30 @@ else
     for k in "${K_VALUES[@]}"; do
         for mode in "${MODES[@]}"; do
             exp_name="${NAME_PREFIX}_${mode}_k${k}"
+
+            # Resume policy: skip experiments that were generated in a prior
+            # sweep run.  These skips are unconditional (not overridable by
+            # --force) because k has no effect on 'none' and the listed
+            # remove runs are intentionally being preserved.
+            skip_mode=0
+            for m in "${ALREADY_DONE_MODES[@]}"; do
+                if [[ "$mode" == "$m" ]]; then skip_mode=1; break; fi
+            done
+            if [[ $skip_mode -eq 1 ]]; then
+                echo "  [skip] $exp_name (mode '$mode' already generated previously; k has no effect)"
+                continue
+            fi
+            if [[ "$mode" == "remove" ]]; then
+                skip_k=0
+                for kd in "${ALREADY_DONE_REMOVE_K[@]}"; do
+                    if [[ "$k" == "$kd" ]]; then skip_k=1; break; fi
+                done
+                if [[ $skip_k -eq 1 ]]; then
+                    echo "  [skip] $exp_name (remove/k=$k already generated previously)"
+                    continue
+                fi
+            fi
+
             summary="experiments/${exp_name}/summary.json"
             if [[ -f "$summary" && $FORCE -eq 0 ]]; then
                 echo "  [skip] $exp_name (summary.json exists; --force to override)"

@@ -10,6 +10,17 @@
 #   pwsh -File scripts\k_sweep\run_full_sweep.ps1 -KValues 5,20,100 -Force
 #   pwsh -File scripts\k_sweep\run_full_sweep.ps1 -SkipTrain
 #   pwsh -File scripts\k_sweep\run_full_sweep.ps1 -Modes "remove"
+#
+# Resume note:
+#   The training loop intentionally skips experiments that have already been
+#   generated in a previous run of this sweep:
+#     * mode 'none' for every k (k has no effect on the no-defense baseline,
+#       and the 'none' runs were completed earlier).
+#     * mode 'remove' for k = 1 and k = 5 (already completed earlier).
+#   All other pipeline stages (config generation, aggregation, plots, tables)
+#   still operate over the full KValues x Modes grid so that the final
+#   report includes the previously generated outputs together with the
+#   newly trained 'remove' runs.
 # =============================================================================
 
 [CmdletBinding()]
@@ -55,6 +66,13 @@ New-Item -ItemType Directory -Force -Path $ReportDir | Out-Null
 $LogFile = Join-Path $ReportDir "sweep.log"
 Start-Transcript -Path $LogFile -Append | Out-Null
 
+# Experiments that are already on disk from previous sweep runs and must NOT
+# be retrained.  Kept here (rather than as -param defaults) so the upstream
+# defaults, naming, paths, and parameter surface stay byte-identical to the
+# original script.
+$AlreadyDoneModes        = @("none")        # done for every k value
+$AlreadyDoneRemoveKValues = @(1, 5)         # done only for remove mode
+
 Write-Host "============================================================"
 Write-Host "Deep k-NN defense sweep - starting"
 Write-Host "  date           : $(Get-Date)"
@@ -76,6 +94,8 @@ Write-Host "  skip_train     : $SkipTrain"
 Write-Host "  skip_plots     : $SkipPlots"
 Write-Host "  skip_tables    : $SkipTables"
 Write-Host "  force          : $Force"
+Write-Host "  resume policy  : skip training for modes=[$($AlreadyDoneModes -join ', ')] (all k)"
+Write-Host "                   skip training for mode=remove, k in [$($AlreadyDoneRemoveKValues -join ', ')]"
 Write-Host "============================================================"
 
 function Invoke-Step {
@@ -117,6 +137,20 @@ if ($SkipTrain) {
     foreach ($k in $KValues) {
         foreach ($mode in $Modes) {
             $expName = "${NamePrefix}_${mode}_k${k}"
+
+            # Resume policy: skip experiments that were generated in a prior
+            # sweep run.  These skips are unconditional (not overridable by
+            # -Force) because k has no effect on 'none' and the listed remove
+            # runs are intentionally being preserved.
+            if ($AlreadyDoneModes -contains $mode) {
+                Write-Host "  [skip] $expName (mode '$mode' already generated previously; k has no effect)"
+                continue
+            }
+            if ($mode -eq "remove" -and ($AlreadyDoneRemoveKValues -contains $k)) {
+                Write-Host "  [skip] $expName (remove/k=$k already generated previously)"
+                continue
+            }
+
             $summary = "experiments/${expName}/summary.json"
             if ((Test-Path $summary) -and -not $Force) {
                 Write-Host "  [skip] $expName (summary.json exists; use -Force to override)"
