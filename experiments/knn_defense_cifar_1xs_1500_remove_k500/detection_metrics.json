@@ -1,0 +1,11 @@
+{
+  "n_samples": 50000,
+  "n_true_poisoned": 1500,
+  "n_flagged": 4425,
+  "auroc": 0.9875167216494845,
+  "auprc": 0.6631347803937477,
+  "precision_at_k": 0.5546666666666666,
+  "recall_at_k": 0.5546666666666666,
+  "flagged_precision": 0.33853107344632766,
+  "flagged_recall": 0.9986666666666667
+}

@@ -1,0 +1,38 @@
+{
+  "mode": "remove",
+  "score_key": "ssl_knn_k200",
+  "cta": 0.9227,
+  "pta": 0.007,
+  "dataset": "cifar",
+  "user_model": "r32p",
+  "poisoner": "1xs",
+  "source_label": 9,
+  "target_label": 4,
+  "seed": 0,
+  "encoder": "dinov2_vits14",
+  "k": 200,
+  "scoring": "disagreement",
+  "removal_count": "auto",
+  "threshold": 0.5,
+  "n_total": 50000,
+  "n_true_poisoned": 1500,
+  "n_removed": 3827,
+  "n_train_samples": 46173,
+  "detection_metrics": {
+    "n_samples": 50000,
+    "n_true_poisoned": 1500,
+    "n_flagged": 3827,
+    "auroc": 0.9877725154639175,
+    "auprc": 0.6654339010533233,
+    "precision_at_k": 0.576,
+    "recall_at_k": 0.576,
+    "flagged_precision": 0.3896002090410243,
+    "flagged_recall": 0.994
+  },
+  "policy_resolved": {
+    "mode": "remove",
+    "removal_count": "auto",
+    "threshold": 0.5,
+    "n_true_poisoned": 1500
+  }
+}
