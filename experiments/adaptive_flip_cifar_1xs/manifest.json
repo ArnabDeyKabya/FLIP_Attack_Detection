@@ -1,0 +1,370 @@
+{
+  "dataset": "cifar",
+  "encoder": "dinov2_vits14",
+  "k": 20,
+  "scoring": "disagreement",
+  "refine_iters": 3,
+  "n_total": 50000,
+  "input_label_glob": "experiments/example_attack/labels.npy",
+  "runs": [
+    {
+      "budget": 1500,
+      "tau": 1.0,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_1.000\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1500,
+      "budget_satisfied": true,
+      "n_eligible": 50000,
+      "mean_margin": 7.764131738384565,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": 1.0,
+      "jaccard_vs_unconstrained": 1.0,
+      "mean_defender_score_on_poisons": 0.7887666821479797,
+      "mean_defender_score_on_clean": 0.06653918325901031,
+      "frac_poisons_above_half": 0.9133333333333333,
+      "frac_selected_from_source_class": 0.8646666666666667,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 50000,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 50000,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 1.0
+        }
+      ],
+      "reproduces_baseline": true
+    },
+    {
+      "budget": 1500,
+      "tau": 0.9,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.900\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1500,
+      "budget_satisfied": true,
+      "n_eligible": 3365,
+      "mean_margin": -4.1838725865284605,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.5388719212277268,
+      "jaccard_vs_unconstrained": 0.014198782961460446,
+      "mean_defender_score_on_poisons": 0.6873667240142822,
+      "mean_defender_score_on_clean": 0.04954742267727852,
+      "frac_poisons_above_half": 0.8046666666666666,
+      "frac_selected_from_source_class": 0.078,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 1796,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 2747,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.3882461823229986
+        },
+        {
+          "iter": 2,
+          "n_eligible": 3365,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.5535991714137752
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.8,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.800\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1263,
+      "budget_satisfied": false,
+      "n_eligible": 1263,
+      "mean_margin": -4.784780857540366,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6162673456305761,
+      "jaccard_vs_unconstrained": 0.005824535857298871,
+      "mean_defender_score_on_poisons": 0.5927553176879883,
+      "mean_defender_score_on_clean": 0.041997864842414856,
+      "frac_poisons_above_half": 0.7030878859857482,
+      "frac_selected_from_source_class": 0.08155186064924783,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 904,
+          "n_selected": 904,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 1105,
+          "n_selected": 1105,
+          "jaccard_vs_prev": 0.7591943957968477
+        },
+        {
+          "iter": 2,
+          "n_eligible": 1263,
+          "n_selected": 1263,
+          "jaccard_vs_prev": 0.8572549019607844
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.7,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.700\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 652,
+      "budget_satisfied": false,
+      "n_eligible": 652,
+      "mean_margin": -4.896875816711619,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6307048851969225,
+      "jaccard_vs_unconstrained": 0.00186219739292365,
+      "mean_defender_score_on_poisons": 0.491411030292511,
+      "mean_defender_score_on_clean": 0.04269170016050339,
+      "frac_poisons_above_half": 0.5306748466257669,
+      "frac_selected_from_source_class": 0.09355828220858896,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 561,
+          "n_selected": 561,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 624,
+          "n_selected": 624,
+          "jaccard_vs_prev": 0.8343653250773994
+        },
+        {
+          "iter": 2,
+          "n_eligible": 652,
+          "n_selected": 652,
+          "jaccard_vs_prev": 0.9480916030534351
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.6,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.600\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 399,
+      "budget_satisfied": false,
+      "n_eligible": 399,
+      "mean_margin": -4.937633600001945,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6359543818133729,
+      "jaccard_vs_unconstrained": 0.0010542962572482868,
+      "mean_defender_score_on_poisons": 0.40651628375053406,
+      "mean_defender_score_on_clean": 0.043842863291502,
+      "frac_poisons_above_half": 0.3107769423558897,
+      "frac_selected_from_source_class": 0.10526315789473684,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 362,
+          "n_selected": 362,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 394,
+          "n_selected": 394,
+          "jaccard_vs_prev": 0.8759305210918115
+        },
+        {
+          "iter": 2,
+          "n_eligible": 399,
+          "n_selected": 399,
+          "jaccard_vs_prev": 0.9628712871287128
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.5,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.500\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 260,
+      "budget_satisfied": false,
+      "n_eligible": 260,
+      "mean_margin": -4.926143207229101,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6344744490713721,
+      "jaccard_vs_unconstrained": 0.0011376564277588168,
+      "mean_defender_score_on_poisons": 0.32346153259277344,
+      "mean_defender_score_on_clean": 0.04482509195804596,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.13846153846153847,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 235,
+          "n_selected": 235,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 258,
+          "n_selected": 258,
+          "jaccard_vs_prev": 0.9108527131782945
+        },
+        {
+          "iter": 2,
+          "n_eligible": 260,
+          "n_selected": 260,
+          "jaccard_vs_prev": 0.9923076923076923
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.4,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.400\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 171,
+      "budget_satisfied": false,
+      "n_eligible": 171,
+      "mean_margin": -4.888758866061941,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.629659443037621,
+      "jaccard_vs_unconstrained": 0.0011983223487118035,
+      "mean_defender_score_on_poisons": 0.25526317954063416,
+      "mean_defender_score_on_clean": 0.04566918686032295,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.14035087719298245,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 159,
+          "n_selected": 159,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 170,
+          "n_selected": 170,
+          "jaccard_vs_prev": 0.9127906976744186
+        },
+        {
+          "iter": 2,
+          "n_eligible": 171,
+          "n_selected": 171,
+          "jaccard_vs_prev": 0.9941520467836257
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.3,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.300\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 98,
+      "budget_satisfied": false,
+      "n_eligible": 98,
+      "mean_margin": -4.836502722939667,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6229289875426519,
+      "jaccard_vs_unconstrained": 0.0012531328320802004,
+      "mean_defender_score_on_poisons": 0.17193876206874847,
+      "mean_defender_score_on_clean": 0.04660434275865555,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.14285714285714285,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 91,
+          "n_selected": 91,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 96,
+          "n_selected": 96,
+          "jaccard_vs_prev": 0.9278350515463918
+        },
+        {
+          "iter": 2,
+          "n_eligible": 98,
+          "n_selected": 98,
+          "jaccard_vs_prev": 0.9795918367346939
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.2,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.200\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 58,
+      "budget_satisfied": false,
+      "n_eligible": 58,
+      "mean_margin": -4.880320999129065,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6285726676946473,
+      "jaccard_vs_unconstrained": 0.0012853470437017994,
+      "mean_defender_score_on_poisons": 0.10689656436443329,
+      "mean_defender_score_on_clean": 0.04719875007867813,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.1724137931034483,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 55,
+          "n_selected": 55,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 58,
+          "n_selected": 58,
+          "jaccard_vs_prev": 0.9482758620689655
+        },
+        {
+          "iter": 2,
+          "n_eligible": 58,
+          "n_selected": 58,
+          "jaccard_vs_prev": 1.0
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.1,
+      "label_path": "experiments\\adaptive_flip_cifar_1xs\\tau_0.100\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 31,
+      "budget_satisfied": false,
+      "n_eligible": 31,
+      "mean_margin": -4.895208562574079,
+      "baseline_mean_margin": 7.764131738384565,
+      "margin_retention": -0.6304901471948227,
+      "jaccard_vs_unconstrained": 0.00065359477124183,
+      "mean_defender_score_on_poisons": 0.04516128450632095,
+      "mean_defender_score_on_clean": 0.04771257936954498,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.12903225806451613,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 31,
+          "n_selected": 31,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 31,
+          "n_selected": 31,
+          "jaccard_vs_prev": 1.0
+        }
+      ]
+    }
+  ]
+}

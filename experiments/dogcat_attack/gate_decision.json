@@ -1,0 +1,11 @@
+{
+  "pair": "5->3",
+  "budget": 1500,
+  "pta_attack": 0.95,
+  "pta_floor": 0.061,
+  "lift": 0.889,
+  "cta_attack": 0.8963,
+  "cta_clean": 0.9257,
+  "lift_threshold": 0.3,
+  "passed": true
+}

@@ -1,0 +1,20 @@
+###
+# select_flips_adaptive schema
+# Defense-aware FLIP: selects label flips subject to a k-NN stealth constraint.
+# Sweeping `taus` traces the attacker's stealth-vs-efficacy frontier.
+# Outputs tau_{tau}/{budget}.npy label tensors (select_flips-compatible),
+# tau_{tau}/selected_{budget}.npy index arrays, and manifest.json.
+###
+
+[select_flips_adaptive]
+input_label_glob = "string. Glob path to expert soft-label .npy files (slurm compatible)."
+true_labels = "string. Path to true label .npy file (slurm compatible)."
+output_dir = "string. Path to output directory (slurm compatible)."
+dataset = "string: {cifar, cifar_100}. Must match the dataset the labels index."
+source_label = "int. Source class label, recorded in the manifest diagnostics."
+knn = "dict. Attacker's model of the defense. Required sub-table; keys mirror [train_user_defense.knn]: encoder, k, scoring, batch_size, feature_cache."
+
+[OPTIONAL]
+budgets = "list. Integer flip budgets. Default [1500]."
+taus = "list. Float stealth budgets in [0, 1]; a flip is admissible only if the defender would score it <= tau. tau = 1.0 is unconstrained and reproduces select_flips. Default [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.3, 0.1]."
+refine_iters = "int >= 1. Fixed-point rounds for scoring candidates against the poisoned (not clean) label assignment, letting co-located flips shield each other. 1 disables refinement. Default 3."

@@ -1,0 +1,28 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+source $\to$ target & mean audit score & pool $\tau \le 0.9$ & pool $\tau \le 0.7$ & pool $\tau \le 0.5$ \\
+\midrule
+dog $\to$ cat & 0.922 & 1164 & 527 & 265 \\
+truck $\to$ car & 0.973 & 425 & 164 & 83 \\
+cat $\to$ dog & 0.940 & 1223 & 314 & 82 \\
+car $\to$ truck & 0.974 & 402 & 143 & 72 \\
+bird $\to$ plane & 0.988 & 165 & 68 & 43 \\
+deer $\to$ frog & 0.989 & 150 & 79 & 42 \\
+bird $\to$ frog & 0.986 & 213 & 87 & 39 \\
+cat $\to$ frog & 0.982 & 310 & 104 & 39 \\
+plane $\to$ ship & 0.988 & 176 & 61 & 36 \\
+bird $\to$ deer & 0.984 & 267 & 88 & 36 \\
+cat $\to$ deer & 0.984 & 303 & 78 & 32 \\
+deer $\to$ horse & 0.987 & 216 & 58 & 30 \\
+dog $\to$ deer & 0.987 & 204 & 73 & 30 \\
+horse $\to$ deer & 0.989 & 174 & 61 & 29 \\
+dog $\to$ horse & 0.990 & 156 & 55 & 28 \\
+truck $\to$ deer & 1.000 & 8 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Stealthy flip pool per class pair, from encoder neighbourhoods alone. A zero pool means no stealthy attack exists for that pair.}
+\label{tab:pair_stealth}
+\end{table}

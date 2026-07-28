@@ -1,0 +1,16 @@
+# Stage 3 of 3 - dog(5) -> cat(3) attack pipeline.
+#
+# Ranks samples by FLIP margin and writes the poisoned label tensor for each
+# budget. Seconds to run; separated only so the pipeline resumes cleanly.
+#
+# Outputs: experiments/dogcat_attack/{150,300,500,1000,1500}.npy
+# Done when 1500.npy exists.
+#
+# Run (normally via run_dogcat_gate.py):
+#   python run_experiment.py dogcat_3_flips
+
+[select_flips]
+budgets          = [150, 300, 500, 1000, 1500]
+input_label_glob = "experiments/dogcat_attack/labels.npy"
+true_labels      = "experiments/dogcat_attack/true.npy"
+output_dir       = "experiments/dogcat_attack/"

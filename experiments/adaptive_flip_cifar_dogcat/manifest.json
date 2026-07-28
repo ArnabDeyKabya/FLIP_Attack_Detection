@@ -1,0 +1,376 @@
+{
+  "dataset": "cifar",
+  "encoder": "dinov2_vits14",
+  "k": 20,
+  "scoring": "disagreement",
+  "refine_iters": 3,
+  "n_total": 50000,
+  "input_label_glob": "experiments/dogcat_attack/labels.npy",
+  "runs": [
+    {
+      "budget": 1500,
+      "tau": 1.0,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_1.000\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1500,
+      "budget_satisfied": true,
+      "n_eligible": 50000,
+      "mean_margin": 8.083496893882751,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": 1.0,
+      "jaccard_vs_unconstrained": 1.0,
+      "mean_defender_score_on_poisons": 0.612766683101654,
+      "mean_defender_score_on_clean": 0.06542887538671494,
+      "frac_poisons_above_half": 0.6773333333333333,
+      "frac_selected_from_source_class": 0.944,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 50000,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 50000,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 1.0
+        }
+      ],
+      "reproduces_baseline": true
+    },
+    {
+      "budget": 1500,
+      "tau": 0.9,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.900\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1500,
+      "budget_satisfied": true,
+      "n_eligible": 4329,
+      "mean_margin": 4.499100170572599,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": 0.5565784498509956,
+      "jaccard_vs_unconstrained": 0.3525698827772768,
+      "mean_defender_score_on_poisons": 0.5374666452407837,
+      "mean_defender_score_on_clean": 0.054538145661354065,
+      "frac_poisons_above_half": 0.522,
+      "frac_selected_from_source_class": 0.9866666666666667,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 2435,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 3744,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.3501350135013501
+        },
+        {
+          "iter": 2,
+          "n_eligible": 4329,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.524390243902439
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.8,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.800\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1500,
+      "budget_satisfied": true,
+      "n_eligible": 2267,
+      "mean_margin": 0.23815897047519685,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": 0.029462369269347463,
+      "jaccard_vs_unconstrained": 0.13507377979568672,
+      "mean_defender_score_on_poisons": 0.40710002183914185,
+      "mean_defender_score_on_clean": 0.04207216575741768,
+      "frac_poisons_above_half": 0.356,
+      "frac_selected_from_source_class": 0.9173333333333333,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 1350,
+          "n_selected": 1350,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 1829,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.5565264882577826
+        },
+        {
+          "iter": 2,
+          "n_eligible": 2267,
+          "n_selected": 1500,
+          "jaccard_vs_prev": 0.601708489054992
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.7,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.700\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 1297,
+      "budget_satisfied": false,
+      "n_eligible": 1297,
+      "mean_margin": -1.6866922263191035,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.208658733770965,
+      "jaccard_vs_unconstrained": 0.07535563244905806,
+      "mean_defender_score_on_poisons": 0.40512722730636597,
+      "mean_defender_score_on_clean": 0.036871444433927536,
+      "frac_poisons_above_half": 0.361603700848111,
+      "frac_selected_from_source_class": 0.6329992289899768,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 892,
+          "n_selected": 892,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 1148,
+          "n_selected": 1148,
+          "jaccard_vs_prev": 0.7510729613733905
+        },
+        {
+          "iter": 2,
+          "n_eligible": 1297,
+          "n_selected": 1297,
+          "jaccard_vs_prev": 0.8851195065535852
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.6,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.600\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 846,
+      "budget_satisfied": false,
+      "n_eligible": 846,
+      "mean_margin": -1.6896079107942874,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.2090194297065805,
+      "jaccard_vs_unconstrained": 0.05962059620596206,
+      "mean_defender_score_on_poisons": 0.35596922039985657,
+      "mean_defender_score_on_clean": 0.038335639983415604,
+      "frac_poisons_above_half": 0.2364066193853428,
+      "frac_selected_from_source_class": 0.6323877068557919,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 637,
+          "n_selected": 637,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 784,
+          "n_selected": 784,
+          "jaccard_vs_prev": 0.8010139416983524
+        },
+        {
+          "iter": 2,
+          "n_eligible": 846,
+          "n_selected": 846,
+          "jaccard_vs_prev": 0.9244391971664699
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.5,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.500\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 556,
+      "budget_satisfied": false,
+      "n_eligible": 556,
+      "mean_margin": -1.579103340562299,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.19534903783501142,
+      "jaccard_vs_unconstrained": 0.04684317718940937,
+      "mean_defender_score_on_poisons": 0.2946043014526367,
+      "mean_defender_score_on_clean": 0.04050440713763237,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.6546762589928058,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 421,
+          "n_selected": 421,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 517,
+          "n_selected": 517,
+          "jaccard_vs_prev": 0.7934990439770554
+        },
+        {
+          "iter": 2,
+          "n_eligible": 556,
+          "n_selected": 556,
+          "jaccard_vs_prev": 0.9298561151079137
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.4,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.400\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 336,
+      "budget_satisfied": false,
+      "n_eligible": 336,
+      "mean_margin": -1.805151951809724,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.22331324864809274,
+      "jaccard_vs_unconstrained": 0.02857142857142857,
+      "mean_defender_score_on_poisons": 0.24538689851760864,
+      "mean_defender_score_on_clean": 0.04277343675494194,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.6279761904761905,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 264,
+          "n_selected": 264,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 320,
+          "n_selected": 320,
+          "jaccard_vs_prev": 0.8193146417445483
+        },
+        {
+          "iter": 2,
+          "n_eligible": 336,
+          "n_selected": 336,
+          "jaccard_vs_prev": 0.9523809523809523
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.3,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.300\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 180,
+      "budget_satisfied": false,
+      "n_eligible": 180,
+      "mean_margin": -1.9256421751446193,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.2382189540521583,
+      "jaccard_vs_unconstrained": 0.020036429872495445,
+      "mean_defender_score_on_poisons": 0.16833333671092987,
+      "mean_defender_score_on_clean": 0.0448775552213192,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.6166666666666667,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 160,
+          "n_selected": 160,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 180,
+          "n_selected": 180,
+          "jaccard_vs_prev": 0.8888888888888888
+        },
+        {
+          "iter": 2,
+          "n_eligible": 180,
+          "n_selected": 180,
+          "jaccard_vs_prev": 1.0
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.2,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.200\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 107,
+      "budget_satisfied": false,
+      "n_eligible": 107,
+      "mean_margin": -2.0055528455805556,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.24810461015928306,
+      "jaccard_vs_unconstrained": 0.011327879169288861,
+      "mean_defender_score_on_poisons": 0.11355140805244446,
+      "mean_defender_score_on_clean": 0.04611368849873543,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.5887850467289719,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 94,
+          "n_selected": 94,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 105,
+          "n_selected": 105,
+          "jaccard_vs_prev": 0.8952380952380953
+        },
+        {
+          "iter": 2,
+          "n_eligible": 107,
+          "n_selected": 107,
+          "jaccard_vs_prev": 0.9813084112149533
+        }
+      ]
+    },
+    {
+      "budget": 1500,
+      "tau": 0.1,
+      "label_path": "experiments\\adaptive_flip_cifar_dogcat\\tau_0.100\\1500.npy",
+      "n_requested": 1500,
+      "n_selected": 48,
+      "budget_satisfied": false,
+      "n_eligible": 48,
+      "mean_margin": -2.7201574370265007,
+      "baseline_mean_margin": 8.083496893882751,
+      "margin_retention": -0.33650751311415744,
+      "jaccard_vs_unconstrained": 0.0038910505836575876,
+      "mean_defender_score_on_poisons": 0.04895833134651184,
+      "mean_defender_score_on_clean": 0.047273386269807816,
+      "frac_poisons_above_half": 0.0,
+      "frac_selected_from_source_class": 0.4583333333333333,
+      "iterations": [
+        {
+          "iter": 0,
+          "n_eligible": 46,
+          "n_selected": 46,
+          "jaccard_vs_prev": 0.0
+        },
+        {
+          "iter": 1,
+          "n_eligible": 48,
+          "n_selected": 48,
+          "jaccard_vs_prev": 0.9583333333333334
+        },
+        {
+          "iter": 2,
+          "n_eligible": 48,
+          "n_selected": 48,
+          "jaccard_vs_prev": 1.0
+        }
+      ]
+    }
+  ]
+}

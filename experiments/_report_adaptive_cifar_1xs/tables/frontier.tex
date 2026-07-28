@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrrrrr}
+\toprule
+$\tau$ & flips & mean margin & \% source & recall & AUPRC & PTA (no def.) & PTA (defended) & CTA (defended) \\
+\midrule
+1.00 & 1500 & 7.76 & 86.5\% & 0.913 & 0.614 & 0.996 & -- & -- \\
+0.90 & 1500 & -4.18 & 7.8\% & 0.805 & 0.489 & 0.017 & -- & -- \\
+0.80 & 1263 & -4.78 & 8.2\% & 0.703 & 0.401 & 0.003 & -- & -- \\
+0.70 & 652 & -4.90 & 9.4\% & 0.531 & 0.182 & 0.002 & -- & -- \\
+0.60 & 399 & -4.94 & 10.5\% & 0.311 & 0.089 & 0.001 & -- & -- \\
+0.50 & 260 & -4.93 & 13.8\% & 0.000 & 0.044 & 0.002 & -- & -- \\
+0.40 & 171 & -4.89 & 14.0\% & 0.000 & 0.023 & -- & -- & -- \\
+0.30 & 98 & -4.84 & 14.3\% & 0.000 & 0.009 & -- & -- & -- \\
+0.20 & 58 & -4.88 & 17.2\% & 0.000 & 0.004 & -- & -- & -- \\
+0.10 & 31 & -4.90 & 12.9\% & 0.000 & 0.002 & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+\caption{Adaptive-attacker stealth-vs-efficacy frontier. $\tau=1.0$ is the defense-unaware attacker and reproduces vanilla FLIP.}
+\label{tab:frontier}
+\end{table}

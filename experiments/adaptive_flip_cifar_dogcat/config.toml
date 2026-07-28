@@ -1,0 +1,37 @@
+# Defense-aware FLIP on dog(5) -> cat(3) -- the pair where a stealthy attack is
+# actually possible.
+#
+# The truck -> deer sweep answered its question but under a structural handicap:
+# that pair's stealthy flip pool is exactly zero, so the constrained attacker had
+# no legal move and its collapse said little about the defense. The pair analysis
+# ranks dog -> cat first with 265 flippable source-class images at tau <= 0.5, and
+# the gate experiment confirmed plain FLIP installs a backdoor here
+# (PTA 0.950 vs a 0.061 clean-label floor).
+#
+# So this is the setting that actually tests the audit: the attacker has room to
+# hide AND something worth hiding.
+#
+# Reuses experiments/dogcat_attack/labels.npy from the gate, so generating every
+# tau costs one k-NN graph build. Only victim training needs a GPU.
+#
+# tau = 1.0 is unconstrained and must reproduce experiments/dogcat_attack/1500.npy.
+#
+# Run:
+#   python run_experiment.py adaptive_flip_cifar_dogcat
+
+[select_flips_adaptive]
+input_label_glob = "experiments/dogcat_attack/labels.npy"
+true_labels      = "experiments/dogcat_attack/true.npy"
+output_dir       = "experiments/adaptive_flip_cifar_dogcat/"
+dataset          = "cifar"
+source_label     = 5
+budgets          = [1500]
+taus             = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+refine_iters     = 3
+
+[select_flips_adaptive.knn]
+encoder       = "dinov2_vits14"
+k             = 20
+scoring       = "disagreement"
+batch_size    = 256
+feature_cache = "data/ssl_features"

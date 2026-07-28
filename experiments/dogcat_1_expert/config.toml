@@ -1,0 +1,23 @@
+# Stage 1 of 3 - dog(5) -> cat(3) attack pipeline.
+#
+# Trains the expert model with the trigger and records its training trajectory
+# as checkpoints. Stages are split into separate experiments so a crash in a
+# later stage does not force this one to be redone -- see
+# scripts/adaptive/run_dogcat_gate.py, which drives all three.
+#
+# Outputs: out/checkpoints/r32p_1xs_dogcat/0/model_{epoch}_{iter}.pth
+# Done when checkpoints for the final epoch (20) exist.
+#
+# Run (normally via run_dogcat_gate.py):
+#   python run_experiment.py dogcat_1_expert
+
+[train_expert]
+output_dir       = "out/checkpoints/r32p_1xs_dogcat/0/"
+model            = "r32p"
+trainer          = "sgd"
+dataset          = "cifar"
+source_label     = 5
+target_label     = 3
+poisoner         = "1xs"
+epochs           = 20
+checkpoint_iters = 50
