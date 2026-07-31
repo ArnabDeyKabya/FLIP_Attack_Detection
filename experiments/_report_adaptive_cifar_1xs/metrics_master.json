@@ -34,8 +34,8 @@
       "mean_score_clean": 0.06653918325901031,
       "cta_undefended": 0.8925,
       "pta_undefended": 0.996,
-      "cta_defended": null,
-      "pta_defended": null
+      "cta_defended": 0.9213,
+      "pta_defended": 0.111
     },
     {
       "tau": 0.9,

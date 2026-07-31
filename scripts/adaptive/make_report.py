@@ -147,6 +147,14 @@ class Study:
             t for t in self.taus if any(abs(t - w) < 1e-9 for w in wanted)
         ] or self.taus[:len(TAU_RAMP)]
 
+        self.aliases = {}
+        for spec in (args.victim_alias or []):
+            tau_s, _, rest = spec.partition("=")
+            mode, _, name = rest.partition(":")
+            if not name:
+                mode, name = "none", rest
+            self.aliases[(round(float(tau_s), 3), mode)] = name
+
         self.true = np.load(self.attack_dir / "true.npy")
         self.true_hard = self.true.argmax(axis=1).astype(np.int64)
 
@@ -172,8 +180,12 @@ class Study:
         return (self.hard_labels(tau) != self.true_hard).astype(np.int32)
 
     def victim(self, tau, mode):
-        d = (self.root / "experiments" /
-             f"{self.args.name_prefix}_tau{tau_slug(tau)}_{mode}")
+        # A tau may be served by a run trained under a different name — the
+        # tau=1.0 point is usually the gate's plain-FLIP run, which exists
+        # before the sweep does and must not be retrained just to rename it.
+        alias = self.aliases.get((round(tau, 3), mode))
+        name = alias or f"{self.args.name_prefix}_tau{tau_slug(tau)}_{mode}"
+        d = self.root / "experiments" / name
         s = d / "summary_detailed.json"
         return (json.loads(s.read_text()), d) if s.exists() else (None, d)
 
@@ -664,6 +676,10 @@ def main():
     p.add_argument("--control-budgets", type=int, nargs="*", default=[])
     p.add_argument("--budget", type=int, default=1500)
     p.add_argument("--threshold", type=float, default=0.5)
+    p.add_argument("--victim-alias", nargs="*", default=[],
+                   help="Map a tau to a victim run trained under another name, "
+                        "as TAU=NAME or TAU=MODE:NAME (mode defaults to none). "
+                        "E.g. 1.0=dogcat_flip_none reuses the gate run.")
     p.add_argument("--figure-taus", type=float, nargs="+",
                    default=[1.0, 0.9, 0.8, 0.7, 0.6, 0.5],
                    help="Taus drawn as separate series in per-tau figures. "

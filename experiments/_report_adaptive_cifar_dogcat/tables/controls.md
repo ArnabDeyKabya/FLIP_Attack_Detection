@@ -1,0 +1,5 @@
+**Reference points. The clean-label row is the CTA ceiling and the PTA floor every other number is read against. Matched-budget FLIP controls were not required: at $\tau = 0.90$ the constrained attacker places the full budget and the attack still collapses, which controls for flip count from within the sweep.**
+
+| configuration | CTA | PTA |
+|---|---|---|
+| clean labels, no attack | 0.926 | 0.061 |

@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lrrrrrrrrrr}
+\toprule
+& \multicolumn{5}{c}{truck $\to$ deer} & \multicolumn{5}{c}{dog $\to$ cat} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}
+$\tau$ & undef. & def. & benefit & lift & recall & undef. & def. & benefit & lift & recall \\
+\midrule
+1.00 & 0.996 & 0.111 & 0.885 & 0.110 & 0.913 & 0.950 & 0.562 & 0.388 & 0.501 & 0.677 \\
+0.90 & 0.017 & -- & -- & -- & 0.805 & 0.646 & 0.364 & 0.282 & 0.303 & 0.522 \\
+0.80 & 0.003 & -- & -- & -- & 0.703 & 0.325 & 0.289 & 0.036 & 0.228 & 0.356 \\
+0.70 & 0.002 & -- & -- & -- & 0.531 & 0.219 & 0.188 & 0.031 & 0.127 & 0.362 \\
+0.60 & 0.001 & -- & -- & -- & 0.311 & 0.177 & 0.138 & 0.039 & 0.077 & 0.236 \\
+0.50 & 0.002 & -- & -- & -- & 0.000 & 0.134 & 0.118 & 0.016 & 0.057 & 0.000 \\
+\bottomrule
+\end{tabular}
+\caption{The defense's strength is a property of the attacked class pair, not of the method. \emph{benefit} is the PTA the audit removes; \emph{lift} is the PTA that survives it, above that pair's clean-label floor (0.001 and 0.061).}
+\label{tab:pair_comparison}
+\end{table}
